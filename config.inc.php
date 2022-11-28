@@ -33,6 +33,7 @@ $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 $cfg['Servers'][$i]['port'] = 3306;
+$cfg['Servers'][$i]['hide_db'] = 'information_schema|performance_schema|mysql|sys';
 /*
  * Laragon: set phpmyadmin to not timeout so quickly
  */
