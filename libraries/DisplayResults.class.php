@@ -1230,7 +1230,7 @@ class PMA_DisplayResults
                         $comments,
                         $sort_direction,
                         $col_visib,
-                        $col_visib[$j]
+                        (is_array($col_visib) && isset($col_visib[$j])) ? $col_visib[$j] : $col_visib
                     );
 
                 $table_headers_html .= $sorted_header_html;
