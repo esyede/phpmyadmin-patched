@@ -304,9 +304,7 @@ function PMA_syncUniqueColumns($field_select, $isTable=true, $table=null)
         $existingCols = implode(",", array_unique($existingCols));
         $message = PMA_Message::notice(
             sprintf(
-                __(
-                    'Could not add %1$s as they already exist in central list!'
-                ),
+                'Could not add %s as they already exist in central list!',
                 htmlspecialchars($existingCols)
             )
         );
@@ -396,10 +394,8 @@ function PMA_deleteColumnsFromList($field_select, $isTable=true)
         $colNotExist = implode(",", array_unique($colNotExist));
         $message = PMA_Message::notice(
             sprintf(
-                __(
-                        'Couldn\'t remove Column(s) %1$s '
-                        . 'as they don\'t exist in central columns list!'
-                    ),
+                'Couldn\'t remove Column(s) %s as they don\'t exist in central columns list!'
+                ,
                 htmlspecialchars($colNotExist)
             )
         );

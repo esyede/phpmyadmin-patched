@@ -826,7 +826,7 @@ class PMA_Table
             if (! $GLOBALS['pma']->databases->exists($source_db)) {
                 $GLOBALS['message'] = PMA_Message::rawError(
                     sprintf(
-                        __('Source database `%s` was not found!'),
+                        'Source database `%s` was not found!',
                         htmlspecialchars($source_db)
                     )
                 );
@@ -834,7 +834,7 @@ class PMA_Table
             if (! $GLOBALS['pma']->databases->exists($target_db)) {
                 $GLOBALS['message'] = PMA_Message::rawError(
                     sprintf(
-                        __('Target database `%s` was not found!'),
+                        'Target database `%s` was not found!',
                         htmlspecialchars($target_db)
                     )
                 );

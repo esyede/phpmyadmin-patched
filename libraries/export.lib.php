@@ -115,9 +115,8 @@ function PMA_exportOutputHandler($line)
                     // in bytes to compare against the number of bytes written.
                     if ($write_result != strlen($dump_buffer)) {
                         $GLOBALS['message'] = PMA_Message::error(
-                            __('Insufficient space to save the file %s.')
+                            sprintf('Insufficient space to save the file %s.', $save_filename)
                         );
-                        $GLOBALS['message']->addParam($save_filename);
                         return false;
                     }
                 } else {
@@ -150,9 +149,8 @@ function PMA_exportOutputHandler($line)
                     || $write_result != strlen($line)
                 ) {
                     $GLOBALS['message'] = PMA_Message::error(
-                        __('Insufficient space to save the file %s.')
+                        sprintf('Insufficient space to save the file %s.', $save_filename)
                     );
-                    $GLOBALS['message']->addParam($save_filename);
                     return false;
                 }
                 $time_now = time();
@@ -334,28 +332,25 @@ function PMA_openExportFile($filename, $quick_export)
         && $_REQUEST['quick_export_onserverover'] != 'saveitover'))
     ) {
         $message = PMA_Message::error(
-            __(
-                'File %s already exists on server, '
-                . 'change filename or check overwrite option.'
+            sprintf(
+                'File %s already exists on server, change filename or check overwrite option.',
+                $save_filename
             )
         );
-        $message->addParam($save_filename);
     } elseif (is_file($save_filename) && ! is_writable($save_filename)) {
         $message = PMA_Message::error(
-            __(
-                'The web server does not have permission '
-                . 'to save the file %s.'
+            sprintf(
+                'The web server does not have permission to save the file %s.',
+                $save_filename
             )
         );
-        $message->addParam($save_filename);
     } elseif (! $file_handle = @fopen($save_filename, 'w')) {
         $message = PMA_Message::error(
-            __(
-                'The web server does not have permission '
-                . 'to save the file %s.'
+            sprintf(
+                'The web server does not have permission to save the file %s.',
+                $save_filename
             )
         );
-        $message->addParam($save_filename);
     }
     return array($save_filename, $message, $file_handle);
 }
@@ -379,15 +374,13 @@ function PMA_closeExportFile($file_handle, $dump_buffer, $save_filename)
         && (! $write_result || $write_result != strlen($dump_buffer))
     ) {
         $message = new PMA_Message(
-            __('Insufficient space to save the file %s.'),
-            PMA_Message::ERROR,
-            array($save_filename)
+            __(sprintf('Insufficient space to save the file %s.', $save_filename)),
+            PMA_Message::ERROR
         );
     } else {
         $message = new PMA_Message(
-            __('Dump has been saved to file %s.'),
-            PMA_Message::SUCCESS,
-            array($save_filename)
+            __(sprintf('Dump has been saved to file %s.', $save_filename)),
+            PMA_Message::SUCCESS
         );
     }
     return $message;

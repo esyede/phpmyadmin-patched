@@ -107,10 +107,7 @@ function PMA_TRI_handleEditor()
                         );
                     } else {
                         $message = PMA_Message::success(
-                            __('Trigger %1$s has been modified.')
-                        );
-                        $message->addParam(
-                            PMA_Util::backquote($_REQUEST['item_name'])
+                            sprintf('Trigger %s has been modified.', PMA_Util::backquote($_REQUEST['item_name']))
                         );
                         $sql_query = $drop_item . $item_query;
                     }
@@ -120,17 +117,14 @@ function PMA_TRI_handleEditor()
                 $result = $GLOBALS['dbi']->tryQuery($item_query);
                 if (! $result) {
                     $errors[] = sprintf(
-                        __('The following query has failed: "%s"'),
+                        'The following query has failed: "%s"',
                         htmlspecialchars($item_query)
                     )
                     . '<br /><br />'
                     . __('MySQL said: ') . $GLOBALS['dbi']->getError(null);
                 } else {
                     $message = PMA_Message::success(
-                        __('Trigger %1$s has been created.')
-                    );
-                    $message->addParam(
-                        PMA_Util::backquote($_REQUEST['item_name'])
+                        psrintf('Trigger %s has been created.', PMA_Util::backquote($_REQUEST['item_name']))
                     );
                     $sql_query = $item_query;
                 }

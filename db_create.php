@@ -58,8 +58,7 @@ if (! $result) {
         include_once 'index.php';
     }
 } else {
-    $message = PMA_Message::success(__('Database %1$s has been created.'));
-    $message->addParam($_POST['new_db']);
+    $message = PMA_Message::success(__(sprintf('Database %s has been created.', $_POST['new_db'])));
     $GLOBALS['db'] = $_POST['new_db'];
 
     /**

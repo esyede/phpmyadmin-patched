@@ -30,7 +30,7 @@ if (PMA_Tracker::isActive()
 ) {
     $msg = PMA_Message::notice(
         sprintf(
-            __('Tracking of %s is activated.'),
+            'Tracking of %s is activated.',
             htmlspecialchars($GLOBALS["db"] . '.' . $GLOBALS["table"])
         )
     );

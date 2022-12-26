@@ -472,26 +472,19 @@ function PMA_getHtmlForExportOptionsOutputFormat($export_type)
     }
 
     $msg = new PMA_Message(
-        __(
-            'This value is interpreted using %1$date%2$s, '
+        sprintf(
+            'This value is interpreted using %sdate%s, '
             . 'so you can use time formatting strings. '
-            . 'Additionally the following transformations will happen: %3$s. '
-            . 'Other text will be kept as is. See the %4$sFAQ%5$s for details.'
+            . 'Additionally the following transformations will happen: %s. '
+            . 'Other text will be kept as is. See the %sFAQ%s for details.',
+            '<a href="' . PMA_linkURL(PMA_getPHPDocLink('function.date.php'))
+            . '" target="documentation" title="' . __('Documentation') . '">',
+            '</a>',
+            $trans,
+            '<a href="' . PMA_Util::getDocuLink('faq', 'faq6-27') . '" target="documentation">',
+            '</a>'
         )
     );
-    $msg->addParam(
-        '<a href="' . PMA_linkURL(PMA_getPHPDocLink('function.date.php'))
-        . '" target="documentation" title="' . __('Documentation') . '">',
-        false
-    );
-    $msg->addParam('</a>', false);
-    $msg->addParam($trans);
-    $doc_url = PMA_Util::getDocuLink('faq', 'faq6-27');
-    $msg->addParam(
-        '<a href="' . $doc_url . '" target="documentation">',
-        false
-    );
-    $msg->addParam('</a>', false);
 
     $html .= PMA_Util::showHint($msg);
     $html .= '</label>';

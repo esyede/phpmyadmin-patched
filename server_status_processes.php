@@ -38,13 +38,12 @@ if ($response->isAjax() && !empty($_REQUEST['kill'])) {
     } else {
         $message = PMA_Message::error(
             __(
-                'phpMyAdmin was unable to kill thread %s.'
+                'phpMyAdmin was unable to kill thread ' . $_REQUEST['kill'] . '.'
                 . ' It probably has already been closed.'
             )
         );
         $response->isSuccess(false);
     }
-    $message->addParam($_REQUEST['kill']);
     $response->addJSON('message', $message);
 } elseif ($response->isAjax() && !empty($_REQUEST['refresh'])) {
     // Only sends the process list table

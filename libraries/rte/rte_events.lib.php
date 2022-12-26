@@ -135,10 +135,7 @@ function PMA_EVN_handleEditor()
                         );
                     } else {
                         $message = PMA_Message::success(
-                            __('Event %1$s has been modified.')
-                        );
-                        $message->addParam(
-                            PMA_Util::backquote($_REQUEST['item_name'])
+                            __('Event ' . PMA_Util::backquote($_REQUEST['item_name']) . ' has been modified.')
                         );
                         $sql_query = $drop_item . $item_query;
                     }
@@ -155,10 +152,7 @@ function PMA_EVN_handleEditor()
                     . __('MySQL said: ') . $GLOBALS['dbi']->getError(null);
                 } else {
                     $message = PMA_Message::success(
-                        __('Event %1$s has been created.')
-                    );
-                    $message->addParam(
-                        PMA_Util::backquote($_REQUEST['item_name'])
+                        __('Event ' . PMA_Util::backquote($_REQUEST['item_name']) . ' has been created.')
                     );
                     $sql_query = $item_query;
                 }

@@ -151,9 +151,8 @@ class ImportShp extends ImportPlugin
         if ($shp->lastError != "") {
             $error = true;
             $message = PMA_Message::error(
-                __('There was an error importing the ESRI shape file: "%s".')
+                __('There was an error importing the ESRI shape file: "%s".', $shp->lastError)
             );
-            $message->addParam($shp->lastError);
             return;
         }
 
@@ -205,9 +204,8 @@ class ImportShp extends ImportPlugin
                 );
             } else {
                 $message = PMA_Message::error(
-                    __('MySQL Spatial Extension does not support ESRI type "%s".')
+                    sprintf('MySQL Spatial Extension does not support ESRI type "%s".', $esri_types[$shp->shapeType])
                 );
-                $message->addParam($esri_types[$shp->shapeType]);
             }
             return;
         }

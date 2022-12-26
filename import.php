@@ -489,9 +489,8 @@ if ($import_file != 'none' && ! $error) {
             $import_handle = @bzopen($import_file, 'r');
         } else {
             $message = PMA_Message::error(
-                __('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.')
+                sprintf('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.', $compression)
             );
-            $message->addParam($compression);
             PMA_stopImport($message);
         }
         break;
@@ -500,9 +499,8 @@ if ($import_file != 'none' && ! $error) {
             $import_handle = @gzopen($import_file, 'r');
         } else {
             $message = PMA_Message::error(
-                __('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.')
+                sprintf('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.', $compression)
             );
-            $message->addParam($compression);
             PMA_stopImport($message);
         }
         break;
@@ -521,9 +519,8 @@ if ($import_file != 'none' && ! $error) {
             }
         } else {
             $message = PMA_Message::error(
-                __('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.')
+                sprintf('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.', $compression)
             );
-            $message->addParam($compression);
             PMA_stopImport($message);
         }
         break;
@@ -532,9 +529,8 @@ if ($import_file != 'none' && ! $error) {
         break;
     default:
         $message = PMA_Message::error(
-            __('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.')
+            sprintf('You attempted to load file with unsupported compression (%s). Either support for it is not implemented or disabled by your configuration.', $compression)
         );
-        $message->addParam($compression);
         PMA_stopImport($message);
         break;
     }
@@ -676,13 +672,13 @@ if ($timeout_passed) {
         $importUrl .= '&local_import_file=' . urlencode($local_import_file);
     }
     $message = PMA_Message::error(
-        __(
+        sprintf(
             'Script timeout passed, if you want to finish import,'
-            . ' please %sresubmit the same file%s and import will resume.'
+            . ' please %sresubmit the same file%s and import will resume.',
+            '<a href="' . $importUrl . '">',
+            '</a>'
         )
     );
-    $message->addParam('<a href="' . $importUrl . '">', false);
-    $message->addParam('</a>', false);
 
     if ($offset == 0 || (isset($original_skip) && $original_skip == $offset)) {
         $message->addString(

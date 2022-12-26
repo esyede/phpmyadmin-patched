@@ -1333,7 +1333,7 @@ function PMA_activateTracking()
     if ($activated) {
         $msg = PMA_Message::success(
             sprintf(
-                __('Tracking for %1$s was activated at version %2$s.'),
+                'Tracking for %1$s was activated at version %s.',
                 htmlspecialchars($GLOBALS['db'] . '.' . $GLOBALS['table']),
                 htmlspecialchars($_REQUEST['version'])
             )
@@ -1360,7 +1360,7 @@ function PMA_deactivateTracking()
     if ($deactivated) {
         $msg = PMA_Message::success(
             sprintf(
-                __('Tracking for %1$s was deactivated at version %2$s.'),
+                'Tracking for %s was deactivated at version %s.',
                 htmlspecialchars($GLOBALS['db'] . '.' . $GLOBALS['table']),
                 htmlspecialchars($_REQUEST['version'])
             )
@@ -1444,7 +1444,7 @@ function PMA_deleteTrackingVersion($version)
     if ($versionDeleted) {
         $msg = PMA_Message::success(
             sprintf(
-                __('Version %1$s of %2$s was deleted.'),
+                'Version %s of %s was deleted.',
                 htmlspecialchars($version),
                 htmlspecialchars($GLOBALS['db'] . '.' . $GLOBALS['table'])
             )
@@ -1474,8 +1474,7 @@ function PMA_createTrackingVersion()
     );
     if ($versionCreated) {
         $msg = PMA_Message::success(
-            sprintf(
-                __('Version %1$s was created, tracking for %2$s is active.'),
+            sprintf('Version %s was created, tracking for %s is active.',
                 htmlspecialchars($_REQUEST['version']),
                 htmlspecialchars($GLOBALS['db'] . '.' . $GLOBALS['table'])
             )

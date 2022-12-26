@@ -2193,8 +2193,7 @@ function PMA_executeSqlQuery($url_params, $query)
                 if ($total_affected_rows > 0) {
                     $insert_id = $insert_id + $total_affected_rows - 1;
                 }
-                $last_message = PMA_Message::notice(__('Inserted row id: %1$d'));
-                $last_message->addParam($insert_id);
+                $last_message = PMA_Message::notice(__('Inserted row id: ' . $insert_id));
                 $last_messages[] = $last_message;
             }
             $GLOBALS['dbi']->freeResult($result);

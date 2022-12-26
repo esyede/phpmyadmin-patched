@@ -133,16 +133,12 @@ if (/*overload*/mb_strlen($GLOBALS['db'])
             $GLOBALS['dbi']->query($local_query);
 
             $message = PMA_Message::success(
-                __('Database %1$s has been renamed to %2$s.')
+                __(sprintf('Database %s has been renamed to %s.', $GLOBALS['db'], $_REQUEST['newname']))
             );
-            $message->addParam($GLOBALS['db']);
-            $message->addParam($_REQUEST['newname']);
         } elseif (! $_error) {
             $message = PMA_Message::success(
-                __('Database %1$s has been copied to %2$s.')
+                __(sprintf('Database %s has been copied to %s.', $GLOBALS['db'], $_REQUEST['newname']))
             );
-            $message->addParam($GLOBALS['db']);
-            $message->addParam($_REQUEST['newname']);
         } else {
             $message = PMA_Message::error();
         }
@@ -260,14 +256,12 @@ if (!$is_information_schema) {
         && $cfg['PmaNoRelation_DisableWarning'] == false
     ) {
         $message = PMA_Message::notice(
-            __('The phpMyAdmin configuration storage has been deactivated. %sFind out why%s.')
+            __(sprintf(
+                'The phpMyAdmin configuration storage has been deactivated. %sFind out why%s.',
+                '<a href="' . $cfg['PmaAbsoluteUri'] . 'chk_rel.php' . $url_query . '">',
+                '</a>'
+            ))
         );
-        $message->addParam(
-            '<a href="' . $cfg['PmaAbsoluteUri']
-            . 'chk_rel.php' . $url_query . '">',
-            false
-        );
-        $message->addParam('</a>', false);
         /* Show error if user has configured something, notice elsewhere */
         if (!empty($cfg['Servers'][$server]['pmadb'])) {
             $message->isError(true);

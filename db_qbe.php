@@ -132,12 +132,7 @@ $url = 'db_designer.php' . PMA_URL_getCommon(
 );
 $response->addHTML(
     PMA_Message::notice(
-        sprintf(
-            __('Switch to %svisual builder%s'),
-            '<a href="' . $url . '">',
-            '</a>'
-        )
-    )
+        __(sprintf('Switch to %svisual builder%s', '<a href="' . $url . '">', '</a>')))
 );
 
 /**

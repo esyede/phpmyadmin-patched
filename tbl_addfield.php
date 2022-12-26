@@ -93,9 +93,8 @@ if (isset($_REQUEST['do_save_data'])) {
 
         // Go back to the structure sub-page
         $message = PMA_Message::success(
-            __('Table %1$s has been altered successfully.')
+            sprintf('Table %s has been altered successfully.', $table)
         );
-        $message->addParam($table);
         $response->addJSON(
             'message',
             PMA_Util::getMessage($message, $sql_query, 'success')

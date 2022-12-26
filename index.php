@@ -549,13 +549,11 @@ if ($server > 0) {
                     . 'to set it up there.'
                 );
         }
-        $msg = PMA_Message::notice($msg_text);
-        $msg->addParam(
-            '<a href="' . $cfg['PmaAbsoluteUri'] . 'chk_rel.php'
-            . $common_url_query . '">',
-            false
-        );
-        $msg->addParam('</a>', false);
+        $msg = PMA_Message::notice(sprintf(
+            $msg_text,
+            '<a href="' . $cfg['PmaAbsoluteUri'] . 'chk_rel.php' . $common_url_query . '">'.
+            '</a>'
+        ));
         /* Show error if user has configured something, notice elsewhere */
         if (!empty($cfg['Servers'][$server]['pmadb'])) {
             $msg->isError(true);

@@ -2928,9 +2928,8 @@ function PMA_updateColumns($db, $table)
 
         if ($result !== false) {
             $message = PMA_Message::success(
-                __('Table %1$s has been altered successfully.')
+                sprintf('Table %s has been altered successfully.', $table)
             );
-            $message->addParam($table);
 
             $response->addHTML(
                 PMA_Util::getMessage($message, $sql_query, 'success')

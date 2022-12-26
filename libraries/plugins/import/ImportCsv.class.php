@@ -289,7 +289,7 @@ class ImportCsv extends AbstractImportCsv
                 // Deadlock protection
                 if ($lasti == $i && $lastlen == $len) {
                     $message = PMA_Message::error(
-                        __('Invalid format of CSV input on line %d.')
+                        __('Invalid format of CSV input on line ' . $line . '.')
                     );
                     $message->addParam($line);
                     $error = true;
@@ -519,11 +519,9 @@ class ImportCsv extends AbstractImportCsv
                             } else {
                                 $message = PMA_Message::error(
                                     __(
-                                        'Invalid column count in CSV input'
-                                        . ' on line %d.'
+                                        'Invalid column count in CSV input on line ' . $line . '.'
                                     )
                                 );
-                                $message->addParam($line);
                                 $error = true;
                                 break;
                             }
@@ -646,9 +644,8 @@ class ImportCsv extends AbstractImportCsv
 
         if (count($values) != 0 && ! $error) {
             $message = PMA_Message::error(
-                __('Invalid format of CSV input on line %d.')
+                __('Invalid format of CSV input on line ' . $line . '.')
             );
-            $message->addParam($line);
             $error = true;
         }
     }

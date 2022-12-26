@@ -192,7 +192,7 @@ function PMA_extractPrivInfo($row = null, $enableHTML = false, $tablePrivs = fal
                 && empty($GLOBALS[$current_grant[0] . '_none'])
             ) {
                 $privs[] = PMA_formatPrivilege($current_grant, $enableHTML)
-                    . ' (`' . join('`, `', $GLOBALS[$current_grant[0]]) . '`)';
+                    . ' (`' . implode('`, `', $GLOBALS[$current_grant[0]]) . '`)';
             } else {
                 $allPrivileges = false;
             }
@@ -2740,7 +2740,7 @@ function PMA_getExtraDataForAjaxBehavior(
 
         $new_user_string .= '</td>' . "\n";
         $new_user_string .= '<td>'
-            . '<code>' . join(', ', PMA_extractPrivInfo(null, true)) . '</code>'
+            . '<code>' . implode(', ', PMA_extractPrivInfo(null, true)) . '</code>'
             . '</td>'; //Fill in privileges here
 
         // if $cfg['Servers'][$i]['users'] and $cfg['Servers'][$i]['usergroups'] are
@@ -2807,7 +2807,7 @@ function PMA_getExtraDataForAjaxBehavior(
             $extra_data['db_specific_privs'] = ! $dbname_is_wildcard;
             $extra_data['db_wildcard_privs'] = $dbname_is_wildcard;
         }
-        $new_privileges = join(', ', PMA_extractPrivInfo(null, true));
+        $new_privileges = implode(', ', PMA_extractPrivInfo(null, true));
 
         $extra_data['new_privileges'] = $new_privileges;
     }
@@ -3742,7 +3742,7 @@ function PMA_updatePrivileges($username, $hostname, $tablename, $dbname)
     if (! (/*overload*/mb_strlen($tablename)
         && 'USAGE' == implode('', PMA_extractPrivInfo()))
     ) {
-        $sql_query2 = 'GRANT ' . join(', ', PMA_extractPrivInfo())
+        $sql_query2 = 'GRANT ' . implode(', ', PMA_extractPrivInfo())
             . ' ON ' . $db_and_table
             . ' TO \'' . PMA_Util::sqlAddSlashes($username) . '\'@\''
             . PMA_Util::sqlAddSlashes($hostname) . '\'';
@@ -4634,22 +4634,22 @@ function PMA_getTablePrivsQueriesForChangeOrCopyUser(
             }
         }
         if (count($tmp_privs2['Select']) > 0 && ! in_array('SELECT', $tmp_privs1)) {
-            $tmp_privs1[] = 'SELECT (`' . join('`, `', $tmp_privs2['Select']) . '`)';
+            $tmp_privs1[] = 'SELECT (`' . implode('`, `', $tmp_privs2['Select']) . '`)';
         }
         if (count($tmp_privs2['Insert']) > 0 && ! in_array('INSERT', $tmp_privs1)) {
-            $tmp_privs1[] = 'INSERT (`' . join('`, `', $tmp_privs2['Insert']) . '`)';
+            $tmp_privs1[] = 'INSERT (`' . implode('`, `', $tmp_privs2['Insert']) . '`)';
         }
         if (count($tmp_privs2['Update']) > 0 && ! in_array('UPDATE', $tmp_privs1)) {
-            $tmp_privs1[] = 'UPDATE (`' . join('`, `', $tmp_privs2['Update']) . '`)';
+            $tmp_privs1[] = 'UPDATE (`' . implode('`, `', $tmp_privs2['Update']) . '`)';
         }
         if (count($tmp_privs2['References']) > 0
             && ! in_array('REFERENCES', $tmp_privs1)
         ) {
             $tmp_privs1[]
-                = 'REFERENCES (`' . join('`, `', $tmp_privs2['References']) . '`)';
+                = 'REFERENCES (`' . implode('`, `', $tmp_privs2['References']) . '`)';
         }
 
-        $queries[] = 'GRANT ' . join(', ', $tmp_privs1)
+        $queries[] = 'GRANT ' . implode(', ', $tmp_privs1)
             . ' ON ' . PMA_Util::backquote($row['Db']) . '.'
             . PMA_Util::backquote($row['Table_name'])
             . ' TO \'' . PMA_Util::sqlAddSlashes($username)
@@ -4685,7 +4685,7 @@ function PMA_getDbSpecificPrivsQueriesForChangeOrCopyUser(
     );
 
     while ($row = $GLOBALS['dbi']->fetchAssoc($res)) {
-        $queries[] = 'GRANT ' . join(', ', PMA_extractPrivInfo($row))
+        $queries[] = 'GRANT ' . implode(', ', PMA_extractPrivInfo($row))
             . ' ON ' . PMA_Util::backquote($row['Db']) . '.*'
             . ' TO \'' . PMA_Util::sqlAddSlashes($username)
             . '\'@\'' . PMA_Util::sqlAddSlashes($hostname) . '\''
@@ -4810,7 +4810,7 @@ function PMA_getSqlQueriesForDisplayAndAddUser($username, $hostname, $password)
         . PMA_Util::sqlAddSlashes($username) . '\'@\''
         . PMA_Util::sqlAddSlashes($hostname) . '\'';
 
-    $real_sql_query = 'GRANT ' . join(', ', PMA_extractPrivInfo()) . ' ON *.* TO \''
+    $real_sql_query = 'GRANT ' . implode(', ', PMA_extractPrivInfo()) . ' ON *.* TO \''
         . PMA_Util::sqlAddSlashes($username) . '\'@\''
         . PMA_Util::sqlAddSlashes($hostname) . '\'';
 

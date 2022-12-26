@@ -259,7 +259,7 @@ if (isset($_REQUEST['delete'])
 if (isset($_REQUEST['change_copy'])) {
     $queries = PMA_getDataForQueries($queries, $queries_for_display);
     $message = PMA_Message::success();
-    $sql_query = join("\n", $queries);
+    $sql_query = implode("\n", $queries);
 }
 
 /**
