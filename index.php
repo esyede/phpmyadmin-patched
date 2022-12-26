@@ -551,7 +551,7 @@ if ($server > 0) {
         }
         $msg = PMA_Message::notice(sprintf(
             $msg_text,
-            '<a href="' . $cfg['PmaAbsoluteUri'] . 'chk_rel.php' . $common_url_query . '">'.
+            '<a href="' . $cfg['PmaAbsoluteUri'] . 'chk_rel.php' . $common_url_query . '">',
             '</a>'
         ));
         /* Show error if user has configured something, notice elsewhere */
