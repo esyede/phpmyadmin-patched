@@ -784,8 +784,7 @@ class PMA_DisplayResults
         }
 
         // Move to the next page or to the last one
-        $endpos = $_SESSION['tmpval']['pos']
-            + $_SESSION['tmpval']['max_rows'];
+        $endpos = intval($_SESSION['tmpval']['pos']) + intval($_SESSION['tmpval']['max_rows']);
 
         if (($endpos < $this->__get('unlim_num_rows'))
             && ($this->__get('num_rows') >= $_SESSION['tmpval']['max_rows'])
@@ -4844,13 +4843,10 @@ class PMA_DisplayResults
             $message_view_warning = false;
         }
 
-        $message = PMA_Message::success(__('Showing rows %1s - %2s'));
-        $message->addParam($first_shown_rec);
+        $message = PMA_Message::success(__(sprintf('Showing rows %s - %s', $first_shown_rec + 1, $last_shown_rec + 1)));
 
         if ($message_view_warning) {
             $message->addParam('... ' . $message_view_warning, false);
-        } else {
-            $message->addParam($last_shown_rec);
         }
 
         $message->addMessage('(');
@@ -4858,13 +4854,10 @@ class PMA_DisplayResults
         if (!$message_view_warning) {
             if (isset($unlim_num_rows) && ($unlim_num_rows != $total)) {
                 $message_total = PMA_Message::notice(
-                    $pre_count . __('%1$d total, %2$d in query')
+                    $pre_count . __($total . ' total, ' . $unlim_num_rows . ' in query')
                 );
-                $message_total->addParam($total);
-                $message_total->addParam($unlim_num_rows);
             } else {
-                $message_total = PMA_Message::notice($pre_count . __('%d total'));
-                $message_total->addParam($total);
+                $message_total = PMA_Message::notice($pre_count . __($total . ' total'));
             }
 
             if (!empty($after_count)) {
@@ -4875,8 +4868,7 @@ class PMA_DisplayResults
             $message->addMessage(', ', '');
         }
 
-        $message_qt = PMA_Message::notice(__('Query took %01.4f seconds.') . ')');
-        $message_qt->addParam($this->__get('querytime'));
+        $message_qt = PMA_Message::notice(__(sprintf('Query took %1.04f seconds.', $this->__get('querytime'))) . ')');
 
         $message->addMessage($message_qt, '');
         if (! is_null($sorted_column_message)) {
