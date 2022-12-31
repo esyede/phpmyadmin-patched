@@ -145,8 +145,9 @@ class gettext_reader
     public function load_tables()
     {
         if (is_array($this->cache_translations) &&
-      is_array($this->table_originals) &&
-      is_array($this->table_translations)) {
+            is_array($this->table_originals) &&
+            is_array($this->table_translations)
+        ) {
             return;
         }
 

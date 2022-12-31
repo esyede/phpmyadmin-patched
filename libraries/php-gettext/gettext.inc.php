@@ -92,7 +92,7 @@ function get_list_of_locales($locale) {
           array_push($locale_names, "{$lang}_{$country}@{$modifier}");
         } elseif ($charset)
             array_push($locale_names, "{$lang}.{$charset}@{$modifier}");
-        array_push($locale_names, "$lang@$modifier");
+        array_push($locale_names, "{$lang}@{$modifier}");
       }
       if ($country) {
         if ($charset)
@@ -121,7 +121,7 @@ function _get_reader($domain=null, $category=5, $enable_cache=true) {
         $locale = _setlocale(LC_MESSAGES, 0);
         $bound_path = isset($text_domains[$domain]->path) ?
           $text_domains[$domain]->path : './';
-        $subpath = $LC_CATEGORIES[$category] ."/$domain.mo";
+        $subpath = $LC_CATEGORIES[$category] ."/{$domain}.mo";
 
         $locale_names = get_list_of_locales($locale);
         $input = null;
