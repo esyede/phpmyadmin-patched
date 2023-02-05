@@ -1245,7 +1245,7 @@ class PMA_DisplayResults
                 $table_headers_html
                     .= $this->_getDraggableClassForNonSortableColumns(
                         $col_visib,
-                        $col_visib[$j],
+                        (is_array($col_visib) && isset($col_visib[$j])) ? $col_visib[$j] : [],
                         $condition_field,
                         $fields_meta[$i],
                         $comments
