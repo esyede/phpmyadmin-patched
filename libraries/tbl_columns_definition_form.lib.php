@@ -34,8 +34,8 @@ function PMA_getFormsParameters(
     if ($action == 'tbl_create.php') {
         $form_params['reload'] = 1;
     } elseif ($action == 'tbl_addfield.php') {
-        $form_params['field_where'] = $_REQUEST['field_where'];
-        $form_params['after_field'] = $_REQUEST['after_field'];
+        $form_params['field_where'] = isset($_REQUEST['field_where']) ? $_REQUEST['field_where'] : null;
+        $form_params['after_field'] = isset($_REQUEST['after_field']) ? $_REQUEST['after_field'] : null;
         $form_params['table'] = $table;
     } else {
         $form_params['table'] = $table;
@@ -1122,7 +1122,7 @@ function PMA_getHtmlForColumnAttribute(
     // here, we have a TIMESTAMP that SHOW FULL COLUMNS reports as having the
     // NULL attribute, but SHOW CREATE TABLE says the contrary. Believe
     // the latter.
-    $create_table_fields = $analyzed_sql[0]['create_table_fields'];
+    $create_table_fields = isset($analyzed_sql[0]) ? $analyzed_sql[0]['create_table_fields'] : null;
 
     // MySQL 4.1.2+ TIMESTAMP options
     // (if on_update_current_timestamp is set, then it's TRUE)
